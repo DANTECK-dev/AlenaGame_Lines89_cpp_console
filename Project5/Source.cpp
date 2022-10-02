@@ -61,6 +61,7 @@ class Game {
     bool VisitedCells[9][9];
     bool FindedWay = false;
     int searchX, searchY;
+    int score = 0;
 
 public:
     Game() {
@@ -71,6 +72,11 @@ public:
                 field[i][j] = *new Cell(i, j);
             }
         }
+        SetCursor(12, 0);
+        SetColor(White, Black);
+        cout << "Selected: False";
+        SetCursor(12, 1);
+        cout << "Score: 0";
         if (field[y1][x1].color == Black) this->field[y1][x1].color = (Color)(rand() % 16);
         if (field[y2][x2].color == Black) this->field[y2][x2].color = (Color)(rand() % 16);
         if (field[y3][x3].color == Black) this->field[y3][x3].color = (Color)(rand() % 16);
@@ -225,7 +231,7 @@ public:
                         xBall = x; yBall = y;
                         Selected = true;
                         SetCursor(12, 0);
-                        SetColor(White, Black);
+                        SetColor(field[x - 1][y - 1].color, Black);
                         cout << "Selected: True ";
                         SetCursor(x, y);
                     }
@@ -312,6 +318,10 @@ public:
             dx += I;
             dy += J;
         }
+        score++;
+        SetColor(White, Black);
+        SetCursor(12, 1);
+        cout << "Score: " << score;
     }
     void destroyLines() {
         for (int i = 0; i < 9; i++) {
