@@ -65,8 +65,6 @@ class Game {
 
 public:
     Game() {
-        int x1 = rand() % 10, x2 = rand() % 10, x3 = rand() % 10, x4 = rand() % 10, x5 = rand() % 10;
-        int y1 = rand() % 10, y2 = rand() % 10, y3 = rand() % 10, y4 = rand() % 10, y5 = rand() % 10;
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 field[i][j] = *new Cell(i, j);
@@ -77,11 +75,7 @@ public:
         cout << "Selected: False";
         SetCursor(12, 1);
         cout << "Score: 0";
-        if (field[y1][x1].color == Black) this->field[y1][x1].color = (Color)(rand() % 16);
-        if (field[y2][x2].color == Black) this->field[y2][x2].color = (Color)(rand() % 16);
-        if (field[y3][x3].color == Black) this->field[y3][x3].color = (Color)(rand() % 16);
-        if (field[y4][x4].color == Black) this->field[y4][x4].color = (Color)(rand() % 16);
-        if (field[y5][x5].color == Black) this->field[y5][x5].color = (Color)(rand() % 16);
+        newBalls();
     }
     
     void Show() {
@@ -358,7 +352,7 @@ public:
             for (int j = 0; j < 9; j++) {
                 if(field[i][j].color != Black) counter++;
                 if (counter > max) {
-                    Stop();
+                    isGameStopped = true;
                     break;
                 }
             }
@@ -372,8 +366,8 @@ public:
             Move();
             Show();
             destroyLines();
-            
         }
+        Stop();
     }
 };
 int main() {
